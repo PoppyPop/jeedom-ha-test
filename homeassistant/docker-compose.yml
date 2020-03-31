@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  homeassistant:
+    image: "homeassistant/raspberrypi3-homeassistant:stable"
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    ports:
+      - "8123:8123"
+    environment:
+      - "TZ=Europe/Paris"
+    volumes:
+      - "/opt/homeassistant:/config"

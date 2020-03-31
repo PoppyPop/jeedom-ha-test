@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  mariadb:
+    image: "mariadb:latest"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: jeedom
+      MYSQL_USER: jeedom
+      MYSQL_PASSWORD: PASSJEEDOM
+    volumes:
+      - "/opt/jeedom/mariadb:/var/lib/mysql"
+
+  jeedom:
+    image: "poppypop/rpi-jeedom"
+    depends_on:
+      - mariadb
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    ports:
+      - "80:80"
+    volumes:
+      - "/opt/jeedom/jeedom:/var/www/html"
